@@ -1,0 +1,21 @@
+:host {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+.wrapper {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 200px 1fr 200px;
+  grid-template-rows: 1fr;
+  overflow: hidden;
+
+  input {
+    text-align: center;
+  }
+
+  &.busy {
+    cursor: wait;
+  }
+}

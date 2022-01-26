@@ -1,0 +1,38 @@
+
+.p-listbox {
+  border: 0px;
+  border-radius: 0;
+}
+
+.p-selectbutton.p-buttonset .p-button {
+  display: inline-flex;
+  justify-content: center;
+}
+
+.pi-unknown {
+  color: var(--gray-200);
+}
+
+.pi-absent {
+  color: red;
+}
+
+.pi-present {
+  color: var(--yellow-300);
+}
+
+.pi-correct {
+  color: var(--green-500);
+}
+
+.not-a-word {
+  box-shadow: 0 0 10px red;
+  color: red !important;
+}
+
+.winner {
+  box-shadow: 0 0 10px hotpink;
+  .p-listbox-item {
+    color: hotpink !important;
+  }
+}

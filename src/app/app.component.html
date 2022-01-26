@@ -1,0 +1,95 @@
+<p-toolbar class="toolbar" styleClass="drag">
+  <div class="p-toolbar-group-left">
+    <img src="assets/icons/wordlassist.png"  class="p-mr-2" width="24" alt="">
+    <span class="p-mr-2 p-text-bold" style="color: white;">Wordl Assist</span>
+  </div>
+  <div class="p-toolbar-group-right">
+    <p-button
+      styleClass="no-drag p-mr-2"
+      icon="pi pi-github"
+      (click)="github()">
+    </p-button>
+    <p-button
+      styleClass="no-drag p-mr-2 p-button-danger"
+      icon="pi pi-times"
+      (click)="quit()">
+    </p-button>
+  </div>
+</p-toolbar>
+<div class="wrapper drag">
+  <p-listbox
+    [options]="anagrams"
+    optionLabel="word"
+    [readonly]="true"
+    styleClass="{{ anagrams.length === 2 ? 'winner': '' }}"
+    [listStyle]="{ 'width': '100%', 'height': '100vh', 'overlay-y': 'scroll' }">
+  </p-listbox>
+  <div class="p-d-flex p-flex-column">
+    <table class="no-drag" style="width: 99%;">
+      <tr>
+        <ng-container *ngFor="let i of [0, 1, 2, 3, 4]">
+          <td>
+            <input
+              type="text"
+              [ngClass]="{ 'not-a-word ': notAWord }"
+              class="p-mx-auto"
+              pInputText maxlength="1"
+              [(ngModel)]="letters[i]"
+              style="width: 100%;"
+              [disabled]="letterDisabled[i]"/>
+          </td>
+        </ng-container>
+      </tr>
+      <tr>
+        <ng-container *ngFor="let i of [0, 1, 2, 3, 4]">
+          <td style="text-align: center;">
+            <p-selectButton
+              [options]="possibleLetterStates"
+              [(ngModel)]="letterStates[i]"
+              dataKey="state"
+              class="p-mx-auto"
+              [disabled]="letterDisabled[i]">
+              <ng-template let-item>
+                <div>
+                  <i [class]="item.icon + ' ' + item.color"></i>
+                </div>
+              </ng-template>
+            </p-selectButton>
+          </td>
+        </ng-container>
+      </tr>
+      <tr>
+        <td colspan="5" style="text-align: center;">
+          <button pButton type="button" class="p-m-2 p-button-success" icon="pi pi-arrow-down" (click)="computeRegexps()"
+          [disabled]="cannotComputeRegexps()"></button>
+          <button pButton type="button" class="p-m-2 p-button-danger" icon="pi pi-times" (click)="reset()"></button>
+        </td>
+      </tr>
+      <ng-container *ngIf="letterAndLetterState.length > 0">
+        <ng-container *ngFor="let aLetterAndLetterState of letterAndLetterState">
+          <tr>
+            <ng-container *ngFor="let i of [0, 1, 2, 3, 4]">
+              <td class="p-p-4" style="text-align: center;">
+                <span [class]="aLetterAndLetterState[i].color">{{ aLetterAndLetterState[i].letter}} </span>
+              </td>
+            </ng-container>
+          </tr>
+        </ng-container>
+      </ng-container>
+      <tr>
+        <ng-container *ngFor="let i of [0, 1, 2, 3, 4]">
+          <td>
+            <input type="text" class="p-mx-auto" pInputText [(ngModel)]="regexps[i]" style="width: 100%;" [disabled]="letterDisabled[i]"/>
+          </td>
+        </ng-container>
+      </tr>
+    </table>
+  </div>
+  <p-listbox
+    [options]="words"
+    optionLabel="word"
+    [readonly]="true"
+    styleClass="no-drag {{ words.length === 2 ? 'winner': '' }}"
+    [listStyle]="{ 'width': '100%', 'height': 'calc(100vh - 55px)', 'overlay-y': 'scroll' }">
+  </p-listbox>
+</div>
